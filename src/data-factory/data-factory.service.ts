@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
 import { Mentor } from 'src/mentor/mentor.entity';
+import { Novice } from 'src/novice/novice.entity';
+import { Passion } from 'src/passion/passion.entity';
 import { Profile } from 'src/profile/profile.entity';
 import { Specialisation } from 'src/specialisation/specialisation.entity';
 
@@ -46,5 +48,21 @@ export class DataFactoryService {
             mentor: fakeMentor, 
         };
     }
+
+    createFakePassion(): Passion {
+            return {
+                passionId: faker.number.int(),
+                label: faker.word.words(),
+                novices: []
+                
+            };
+        }
+
+    createFakeNovice(): Novice {
+            return {
+                passions : []
+            };
+        }
+    
 }
 

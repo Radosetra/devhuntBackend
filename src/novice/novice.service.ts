@@ -8,6 +8,7 @@ import { Passion } from 'src/passion/passion.entity';
 import { SuggestionNovicePassionDto } from './dto/suggestion-novice-passion.dto';
 import { SuggestionNoviceDto } from './dto/suggestion-novice.dto';
 import { SuggestionPassionDto } from './dto/suggestion-passion.dto';
+import { DataFactoryService } from 'src/data-factory/data-factory.service';
 
 interface PassionNovices {
     passion: string;
@@ -28,7 +29,9 @@ export class NoviceService {
         private readonly noviceRepository: Repository<Novice>,
 
         @InjectRepository(Passion)
-        private readonly passionRepository: Repository<Passion>
+        private readonly passionRepository: Repository<Passion>,
+
+        private dataFactoryService: DataFactoryService
     ) { }
 
     findOne(matricule: string) {
@@ -108,5 +111,13 @@ export class NoviceService {
 
         return passions
     }
+
+    generateFakeNovice(): Novice[] {
+        const fakeNovice: Novice[] = [];
+        for (let i = 0; i < 10; i++) {
+            fakeNovice.push(this.dataFactoryService.createFakeNovice());
+        }
+        return fakeNovice;
+      }
       
 }
