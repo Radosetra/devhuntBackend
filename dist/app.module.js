@@ -20,7 +20,14 @@ const typeorm_1 = require("@nestjs/typeorm");
 const mentor_entity_1 = require("./mentor/mentor.entity");
 const profile_entity_1 = require("./profile/profile.entity");
 const specialisation_entity_1 = require("./specialisation/specialisation.entity");
+
+const novice_entity_1 = require("./novice/novice.entity");
+const passion_entity_1 = require("./passion/passion.entity");
+const novice_module_1 = require("./novice/novice.module");
+const passion_module_1 = require("./passion/passion.module");
+
 const data_factory_service_1 = require("./data-factory/data-factory.service");
+
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -32,12 +39,14 @@ exports.AppModule = AppModule = __decorate([
                 host: 'localhost',
                 port: 5432,
                 username: 'postgres',
-                password: '248651379rfg',
+                password: 'postgres',
                 database: 'devhunt',
-                entities: [mentor_entity_1.Mentor, profile_entity_1.Profile, specialisation_entity_1.Specialisation],
+                entities: [mentor_entity_1.Mentor, profile_entity_1.Profile, specialisation_entity_1.Specialisation, novice_entity_1.Novice, passion_entity_1.Passion],
                 synchronize: true,
             }),
             typeorm_1.TypeOrmModule.forFeature([profile_entity_1.Profile, mentor_entity_1.Mentor, specialisation_entity_1.Specialisation]),
+            novice_module_1.NoviceModule,
+            passion_module_1.PassionModule
         ],
         controllers: [app_controller_1.AppController, profile_controller_1.ProfileController, mentor_controller_1.MentorController, specialisation_controller_1.SpecialisationController],
         providers: [app_service_1.AppService, profile_service_1.ProfileService, mentor_service_1.MentorService, specialisation_service_1.SpecialisationService, data_factory_service_1.DataFactoryService],

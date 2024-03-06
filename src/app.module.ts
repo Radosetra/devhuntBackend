@@ -11,6 +11,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Mentor } from './mentor/mentor.entity';
 import { Profile } from './profile/profile.entity';
 import { Specialisation } from './specialisation/specialisation.entity';
+import { Novice } from './novice/novice.entity';
+import { Passion } from './passion/passion.entity';
+import { NoviceModule } from './novice/novice.module';
+import { PassionModule } from './passion/passion.module';
 import { DataFactoryService } from './data-factory/data-factory.service';
 
 @Module({
@@ -20,12 +24,14 @@ import { DataFactoryService } from './data-factory/data-factory.service';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '248651379rfg',
+      password: 'postgres',
       database: 'devhunt',
-      entities: [Mentor, Profile, Specialisation],
+      entities: [Mentor, Profile, Specialisation, Novice, Passion],
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Profile, Mentor, Specialisation]),
+    NoviceModule,
+    PassionModule
   ],
   controllers: [AppController, ProfileController, MentorController, SpecialisationController],
   providers: [AppService, ProfileService, MentorService, SpecialisationService, DataFactoryService],
