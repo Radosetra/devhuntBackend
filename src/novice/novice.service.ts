@@ -7,6 +7,7 @@ import { Passion } from 'src/passion/passion.entity';
 
 import { SuggestionNovicePassionDto } from './dto/suggestion-novice-passion.dto';
 import { SuggestionNoviceDto } from './dto/suggestion-novice.dto';
+import { SuggestionPassionDto } from './dto/suggestion-passion.dto';
 
 interface PassionNovices {
     passion: string;
@@ -88,14 +89,24 @@ export class NoviceService {
 
     async getNoviceForPassion(passionId: number): Promise<SuggestionNoviceDto[]>{
         const novices: SuggestionNoviceDto[] = await this.noviceRepository
-              .createQueryBuilder('novice')
-              .innerJoin('novice.passions', 'passion')
-              .select(['novice.matricule', 'novice.photo', 'novice.firstname', 'novice.lastname', 'novice.parcours', 'novice.level'])
-              .where('passion.id = :passionId', { passionId })
-              .getRawMany();
+            .createQueryBuilder('novice')
+            .innerJoin('novice.passions', 'passion')
+            .select(['novice.matricule', 'novice.photo', 'novice.firstname', 'novice.lastname', 'novice.parcours', 'novice.level'])
+            .where('passion.id = :passionId', { passionId })
+            .getRawMany();
         
         return novices;
     }
 
+    async getPassionForNovice(matricule: string): Promise<SuggestionPassionDto[]>{
+        const passions: SuggestionPassionDto[] =  await this.noviceRepository
+            .createQueryBuilder('novice')
+            .innerJoin('novice.passions', 'passion')
+            .select(['passion.passionId', 'passion.label'])
+            .where('novice.matricule = :matricule', { matricule })
+            .getRawMany();
+
+        return passions
+    }
       
 }
