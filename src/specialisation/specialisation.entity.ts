@@ -12,6 +12,6 @@ export class Specialisation {
     @Column({type : 'text',nullable: true})
     description: string;
 
-   @ManyToOne( () => Mentor, mentor => mentor.specialisations)
-   mentor: Mentor;
+    @ManyToOne( () => Mentor, mentor => mentor.specialisations)
+    mentor: Mentor;
 }
