@@ -1,6 +1,6 @@
 import { Mentor } from "src/mentor/mentor.entity";
 export declare class Specialisation {
-    specId: number;
+    specId: string;
     specLabel: string;
     description: string;
     mentor: Mentor;

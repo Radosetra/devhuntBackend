@@ -11,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Mentor } from './mentor/mentor.entity';
 import { Profile } from './profile/profile.entity';
 import { Specialisation } from './specialisation/specialisation.entity';
+import { DataFactoryService } from './data-factory/data-factory.service';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { Specialisation } from './specialisation/specialisation.entity';
     TypeOrmModule.forFeature([Profile, Mentor, Specialisation]),
   ],
   controllers: [AppController, ProfileController, MentorController, SpecialisationController],
-  providers: [AppService, ProfileService, MentorService, SpecialisationService],
+  providers: [AppService, ProfileService, MentorService, SpecialisationService, DataFactoryService],
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 export declare class Profile {
-    matricule: number;
+    matricule: string;
     firstName: string;
     lastName: string;
     parcours: string;

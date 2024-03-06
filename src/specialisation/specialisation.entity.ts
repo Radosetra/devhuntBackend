@@ -1,10 +1,10 @@
 import { Mentor } from "src/mentor/mentor.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Specialisation {
     @PrimaryGeneratedColumn()
-    specId: number;
+    specId: string;
 
     @Column({nullable: false})
     specLabel: string;
@@ -12,6 +12,6 @@ export class Specialisation {
     @Column({type : 'text',nullable: true})
     description: string;
 
-   @ManyToOne( () => Mentor, mentor => mentor.specialisations)
-   mentor: Mentor;
+    @OneToMany( () => Mentor, mentor => mentor.specialisations)
+    mentor: Mentor;
 }
