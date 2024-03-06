@@ -17,15 +17,18 @@ export class Profile {
     @Column({nullable: false})
     level: string;
 
-    @Column({type:'text', nullable: false})
+    @Column({type: 'text', nullable: false})
     description: string;
+
+    @Column({nullable: true})
+    photos: string;
 
     @Column({nullable: false})
     contact1: string;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     contact2: string;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     contact3: string;
 }

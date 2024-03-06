@@ -9,9 +9,9 @@ export class Specialisation {
     @Column({nullable: false})
     specLabel: string;
 
-    @Column({type: 'text', nullable: false})
+    @Column({type : 'text',nullable: true})
     description: string;
 
-   @ManyToOne( () => Mentor, mentor => mentor.specialisation)
+   @ManyToOne( () => Mentor, mentor => mentor.specialisations)
    mentor: Mentor;
 }

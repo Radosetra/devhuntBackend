@@ -1,13 +1,13 @@
-import { Profile } from "src/profile/profile.enitity";
+import { Profile } from "src/profile/profile.entity";
 import { Specialisation } from "src/specialisation/specialisation.entity";
-import { ChildEntity, Column, OneToMany } from "typeorm";
+import { ChildEntity, Column, Entity, OneToMany } from "typeorm";
 
-@ChildEntity()
+@Entity()
 export class Mentor extends Profile {
 
-    @Column({type:'text', nullable:true})
+    @Column()
     successStory: string;
 
-    @OneToMany( () => Specialisation, specialisation => specialisation.mentor )
-    specialisation: Specialisation[];
+    @OneToMany(() => Specialisation, specialisation => specialisation.mentor )
+    specialisations: Specialisation[];
 }
