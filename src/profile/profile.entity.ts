@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Profile {
     @PrimaryGeneratedColumn()
-    matricule: number;
+    matricule: string;
 
     @Column({nullable: false})
     firstName: string;

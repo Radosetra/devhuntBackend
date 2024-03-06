@@ -7,7 +7,16 @@ import { Specialisation } from './specialisation.entity';
 export class SpecialisationService {
     constructor(
         @InjectRepository(Specialisation)
-        private readonly specialisationRepository: Repository<Specialisation>
+        private readonly specialisationRepository: Repository<Specialisation>,
+         
+        private dataFactoryService: DataFactoryService
     ){}
-
+  
+    generateFakeData(): Specialisation[] {
+          const fakeSpecialisations: Specialisation[] = [];
+          for (let i = 0; i < 10; i++) {
+              fakeSpecialisations.push(this.dataFactoryService.createFakeSpecialisation());
+          }
+          return fakeSpecialisations;
+      }
 }

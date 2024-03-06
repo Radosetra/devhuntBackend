@@ -17,7 +17,7 @@ let Specialisation = class Specialisation {
 exports.Specialisation = Specialisation;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Specialisation.prototype, "specId", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], Specialisation.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => mentor_entity_1.Mentor, mentor => mentor.specialisations),
+    (0, typeorm_1.OneToMany)(() => mentor_entity_1.Mentor, mentor => mentor.specialisations),
     __metadata("design:type", mentor_entity_1.Mentor)
 ], Specialisation.prototype, "mentor", void 0);
 exports.Specialisation = Specialisation = __decorate([

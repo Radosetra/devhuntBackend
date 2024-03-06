@@ -7,14 +7,19 @@ import { Novice } from './novice.entity';
 import { SuggestionNovicePassionDto } from './dto/suggestion-novice-passion.dto';
 import { SuggestionNoviceDto } from './dto/suggestion-novice.dto';
 import { SuggestionPassionDto } from './dto/suggestion-passion.dto';
+
 import { ProfileDto } from 'src/profile/dto/profile.dto';
 import { ProfileNoviceDto } from './dto/profile-novice.dto';
+
+import { DataFactoryService } from 'src/data-factory/data-factory.service';
 
 @Injectable()
 export class NoviceService {
     constructor(
         @InjectRepository(Novice)
-        private readonly noviceRepository: Repository<Novice>
+        private readonly noviceRepository: Repository<Novice>,
+
+        private dataFactoryService: DataFactoryService
     ) { }
 
     async getNoviceForPassion(passionId: number, matricule: string): Promise<SuggestionNoviceDto[]>{
@@ -39,6 +44,7 @@ export class NoviceService {
 
         return passions
     }
+
     
     async findNovicesWithSamePassion(matricule: string): Promise<SuggestionNovicePassionDto[]> {
         const passions: SuggestionPassionDto[] = await this.getPassionForNovice(matricule)
@@ -76,4 +82,13 @@ export class NoviceService {
 
         return noviceProfile;
     }
+
+    generateFakeNovice(): Novice[] {
+        const fakeNovice: Novice[] = [];
+        for (let i = 0; i < 10; i++) {
+            fakeNovice.push(this.dataFactoryService.createFakeNovice());
+        }
+        return fakeNovice;
+      }
+ 
 }

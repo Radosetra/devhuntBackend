@@ -15,6 +15,7 @@ import { Novice } from './novice/novice.entity';
 import { Passion } from './passion/passion.entity';
 import { NoviceModule } from './novice/novice.module';
 import { PassionModule } from './passion/passion.module';
+import { DataFactoryService } from './data-factory/data-factory.service';
 
 @Module({
   imports: [
@@ -33,6 +34,6 @@ import { PassionModule } from './passion/passion.module';
     PassionModule
   ],
   controllers: [AppController, ProfileController, MentorController, SpecialisationController],
-  providers: [AppService, ProfileService, MentorService, SpecialisationService],
+  providers: [AppService, ProfileService, MentorService, SpecialisationService, DataFactoryService],
 })
 export class AppModule {}
