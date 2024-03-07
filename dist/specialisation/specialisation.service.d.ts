@@ -1,7 +1,8 @@
+import { Repository } from 'typeorm';
 import { Specialisation } from './specialisation.entity';
-import { DataFactoryService } from 'src/data-factory/data-factory.service';
+import { ListItemMentorDto } from 'src/mentor/dto/list-item-mentor.dto';
 export declare class SpecialisationService {
-    private dataFactoryService;
-    constructor(dataFactoryService: DataFactoryService);
-    generateFakeData(): Specialisation[];
+    private readonly specialisationRepository;
+    constructor(specialisationRepository: Repository<Specialisation>);
+    findMentorBySpecializationLabel(specLabel: string): Promise<ListItemMentorDto[]>;
 }

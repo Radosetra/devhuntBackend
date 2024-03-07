@@ -2,7 +2,7 @@ import { IsNotEmpty } from "class-validator";
 
 export class SuggestionNoviceDto {
     @IsNotEmpty()
-    matricule: string;
+    matricule: number;
 
     @IsNotEmpty()
     photo: string;

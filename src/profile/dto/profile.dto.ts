@@ -14,6 +14,9 @@ export class ProfileDto {
     description: string;
 
     @IsNotEmpty()
+    parcours: string;
+
+    @IsNotEmpty()
     photos: string;
 
     @IsNotEmpty()

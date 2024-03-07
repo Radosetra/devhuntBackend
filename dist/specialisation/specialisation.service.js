@@ -8,25 +8,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SpecialisationService = void 0;
 const common_1 = require("@nestjs/common");
-const data_factory_service_1 = require("../data-factory/data-factory.service");
+const typeorm_1 = require("typeorm");
+const typeorm_2 = require("@nestjs/typeorm");
+const specialisation_entity_1 = require("./specialisation.entity");
 let SpecialisationService = class SpecialisationService {
-    constructor(dataFactoryService) {
-        this.dataFactoryService = dataFactoryService;
+    constructor(specialisationRepository) {
+        this.specialisationRepository = specialisationRepository;
     }
-    generateFakeData() {
-        const fakeSpecialisations = [];
-        for (let i = 0; i < 10; i++) {
-            fakeSpecialisations.push(this.dataFactoryService.createFakeSpecialisation());
-        }
-        return fakeSpecialisations;
+    async findMentorBySpecializationLabel(specLabel) {
+        const query = await this.specialisationRepository
+            .createQueryBuilder('specialisation')
+            .leftJoinAndSelect('specialisation.mentors', 'mentor')
+            .where('specialisation.specLabel LIKE :specLabel', { specLabel: `%${specLabel}%` })
+            .select([
+            'mentor.matricule',
+            'mentor.firstName',
+            'mentor.lastName',
+            'mentor.photos',
+            'specialisation.specLabel',
+        ])
+            .getMany();
+        const mentorsDto = query.map((mentorData) => ({
+            matricule: mentorData.matricule,
+            photos: mentorData.photos,
+            firstname: mentorData.firstName,
+            lastname: mentorData.lastName,
+            specLabel: mentorData.specLabel,
+        }));
+        return mentorsDto;
     }
 };
 exports.SpecialisationService = SpecialisationService;
 exports.SpecialisationService = SpecialisationService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [data_factory_service_1.DataFactoryService])
+    __param(0, (0, typeorm_2.InjectRepository)(specialisation_entity_1.Specialisation)),
+    __metadata("design:paramtypes", [typeorm_1.Repository])
 ], SpecialisationService);
 //# sourceMappingURL=specialisation.service.js.map

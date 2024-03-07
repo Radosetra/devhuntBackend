@@ -1,7 +1,9 @@
 import { Mentor } from "src/mentor/mentor.entity";
+import { Parcours } from "src/parcours/parcours.entity";
 export declare class Specialisation {
-    specId: string;
+    specId: number;
     specLabel: string;
     description: string;
-    mentor: Mentor;
+    mentors: Mentor[];
+    parcours: Parcours[];
 }

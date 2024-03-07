@@ -2,7 +2,7 @@ import { IsNotEmpty } from "class-validator";
 
 export class ListItemMentorDto {
     @IsNotEmpty()
-    matricule: string;
+    matricule: number;
 
     @IsNotEmpty()
     photos: string;
@@ -14,5 +14,5 @@ export class ListItemMentorDto {
     lastname: string;
 
     @IsNotEmpty()
-    specialisation: string;
+    specLabel: string;
 }

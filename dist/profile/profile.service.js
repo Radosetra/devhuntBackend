@@ -11,22 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProfileService = void 0;
 const common_1 = require("@nestjs/common");
-const data_factory_service_1 = require("../data-factory/data-factory.service");
 let ProfileService = class ProfileService {
-    constructor(dataFactoryService) {
-        this.dataFactoryService = dataFactoryService;
-    }
-    generateFakeData() {
-        const fakeProfile = [];
-        for (let i = 0; i < 10; i++) {
-            fakeProfile.push(this.dataFactoryService.createFakeProfile());
-        }
-        return fakeProfile;
-    }
+    constructor() { }
 };
 exports.ProfileService = ProfileService;
 exports.ProfileService = ProfileService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [data_factory_service_1.DataFactoryService])
+    __metadata("design:paramtypes", [])
 ], ProfileService);
 //# sourceMappingURL=profile.service.js.map

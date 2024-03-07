@@ -11,13 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Specialisation = void 0;
 const mentor_entity_1 = require("../mentor/mentor.entity");
+const parcours_entity_1 = require("../parcours/parcours.entity");
 const typeorm_1 = require("typeorm");
 let Specialisation = class Specialisation {
 };
 exports.Specialisation = Specialisation;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Specialisation.prototype, "specId", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
@@ -28,9 +29,14 @@ __decorate([
     __metadata("design:type", String)
 ], Specialisation.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => mentor_entity_1.Mentor, mentor => mentor.specialisations),
-    __metadata("design:type", mentor_entity_1.Mentor)
-], Specialisation.prototype, "mentor", void 0);
+    (0, typeorm_1.OneToMany)(() => mentor_entity_1.Mentor, mentor => mentor.specialisation),
+    __metadata("design:type", Array)
+], Specialisation.prototype, "mentors", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => parcours_entity_1.Parcours, (parcours) => parcours.specialisations),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Array)
+], Specialisation.prototype, "parcours", void 0);
 exports.Specialisation = Specialisation = __decorate([
     (0, typeorm_1.Entity)()
 ], Specialisation);
