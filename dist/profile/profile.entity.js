@@ -11,12 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Profile = void 0;
 const typeorm_1 = require("typeorm");
+const parcours_entity_1 = require("../parcours/parcours.entity");
 let Profile = class Profile {
 };
 exports.Profile = Profile;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Profile.prototype, "matricule", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
@@ -26,10 +27,6 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
     __metadata("design:type", String)
 ], Profile.prototype, "lastName", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", String)
-], Profile.prototype, "parcours", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
     __metadata("design:type", String)
@@ -54,6 +51,10 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Profile.prototype, "contact3", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => parcours_entity_1.Parcours, (parcours) => parcours.profiles),
+    __metadata("design:type", parcours_entity_1.Parcours)
+], Profile.prototype, "parcours", void 0);
 exports.Profile = Profile = __decorate([
     (0, typeorm_1.Entity)()
 ], Profile);

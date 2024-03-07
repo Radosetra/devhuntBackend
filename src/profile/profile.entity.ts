@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Parcours } from "src/parcours/parcours.entity";
 
 @Entity()
 export class Profile {
     @PrimaryGeneratedColumn()
-    matricule: string;
+    matricule: number;
 
     @Column({nullable: false})
     firstName: string;
@@ -11,8 +12,8 @@ export class Profile {
     @Column({nullable: false})
     lastName: string;
     
-    @Column({nullable: false})
-    parcours: string;
+    // @Column({nullable: false})
+    // parcours: string;
 
     @Column({nullable: false})
     level: string;
@@ -31,4 +32,7 @@ export class Profile {
 
     @Column({nullable: true})
     contact3: string;
+
+    @ManyToOne(() => Parcours, (parcours) => parcours.profiles)
+    parcours: Parcours
 }

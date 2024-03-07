@@ -21,9 +21,9 @@ __decorate([
     __metadata("design:type", String)
 ], Mentor.prototype, "successStory", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => specialisation_entity_1.Specialisation, specialisation => specialisation.mentor),
-    __metadata("design:type", Array)
-], Mentor.prototype, "specialisations", void 0);
+    (0, typeorm_1.ManyToOne)(() => specialisation_entity_1.Specialisation, specialisation => specialisation.mentors),
+    __metadata("design:type", specialisation_entity_1.Specialisation)
+], Mentor.prototype, "specialisation", void 0);
 exports.Mentor = Mentor = __decorate([
     (0, typeorm_1.Entity)()
 ], Mentor);

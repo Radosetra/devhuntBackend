@@ -1,7 +1,8 @@
+import { Repository } from 'typeorm';
 import { Mentor } from './mentor.entity';
-import { DataFactoryService } from 'src/data-factory/data-factory.service';
+import { ProfileMentorDto } from './dto/profil-mentor.dto';
 export declare class MentorService {
-    private dataFactoryService;
-    constructor(dataFactoryService: DataFactoryService);
-    generateFakeData(): Mentor[];
+    private readonly mentorRepository;
+    constructor(mentorRepository: Repository<Mentor>);
+    findMentorByMatricule(matricule: number): Promise<ProfileMentorDto>;
 }

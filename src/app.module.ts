@@ -15,7 +15,9 @@ import { Novice } from './novice/novice.entity';
 import { Passion } from './passion/passion.entity';
 import { NoviceModule } from './novice/novice.module';
 import { PassionModule } from './passion/passion.module';
-import { DataFactoryService } from './data-factory/data-factory.service';
+// import { DataFactoryService } from './data-factory/data-factory.service';
+import { ParcoursModule } from './parcours/parcours.module';
+import { Parcours } from './parcours/parcours.entity';
 
 @Module({
   imports: [
@@ -26,14 +28,15 @@ import { DataFactoryService } from './data-factory/data-factory.service';
       username: 'postgres',
       password: 'postgres',
       database: 'devhunt',
-      entities: [Mentor, Profile, Specialisation, Novice, Passion],
+      entities: [Mentor, Profile, Parcours, Specialisation, Novice, Passion],
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Profile, Mentor, Specialisation]),
     NoviceModule,
-    PassionModule
+    PassionModule,
+    ParcoursModule
   ],
   controllers: [AppController, ProfileController, MentorController, SpecialisationController],
-  providers: [AppService, ProfileService, MentorService, SpecialisationService, DataFactoryService],
+  providers: [AppService, ProfileService, MentorService, SpecialisationService],
 })
 export class AppModule {}

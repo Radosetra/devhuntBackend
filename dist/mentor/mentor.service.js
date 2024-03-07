@@ -8,25 +8,53 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MentorService = void 0;
 const common_1 = require("@nestjs/common");
-const data_factory_service_1 = require("../data-factory/data-factory.service");
+const typeorm_1 = require("typeorm");
+const typeorm_2 = require("@nestjs/typeorm");
+const mentor_entity_1 = require("./mentor.entity");
 let MentorService = class MentorService {
-    constructor(dataFactoryService) {
-        this.dataFactoryService = dataFactoryService;
+    constructor(mentorRepository) {
+        this.mentorRepository = mentorRepository;
     }
-    generateFakeData() {
-        const fakeMentors = [];
-        for (let i = 0; i < 10; i++) {
-            fakeMentors.push(this.dataFactoryService.createFakeMentor());
-        }
-        return fakeMentors;
+    async findMentorByMatricule(matricule) {
+        const query = await this.mentorRepository
+            .createQueryBuilder('mentor')
+            .leftJoinAndSelect('mentor.specialisation', 'specialisation')
+            .leftJoinAndSelect('novice.parcours', 'parcours')
+            .select([
+            'mentor.*',
+            'parcours.parcoursLabel',
+            'specialisation.specLabel',
+            'specialisation.description'
+        ])
+            .where('mentor.matricule = :matricule', { matricule })
+            .getOne();
+        const profileMentor = {
+            matricule: query.matricule,
+            firstName: query.firstName,
+            lastName: query.lastName,
+            description: query.description,
+            parcours: query.parcoursLabel,
+            photos: query.photos,
+            contact1: query.contact1,
+            contact2: query.contact2,
+            contact3: query.contact3,
+            successStory: query.successStory,
+            specLabel: query.specLabel,
+            specDescription: query.specDescription
+        };
+        return profileMentor;
     }
 };
 exports.MentorService = MentorService;
 exports.MentorService = MentorService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [data_factory_service_1.DataFactoryService])
+    __param(0, (0, typeorm_2.InjectRepository)(mentor_entity_1.Mentor)),
+    __metadata("design:paramtypes", [typeorm_1.Repository])
 ], MentorService);
 //# sourceMappingURL=mentor.service.js.map

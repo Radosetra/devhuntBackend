@@ -8,5 +8,5 @@ export class ProfileMentorDto extends ProfileDto {
     specLabel: string;
 
     @IsNotEmpty()
-    description: string;
+    specDescription: string;
 }
