@@ -5,4 +5,5 @@ export declare class SpecialisationService {
     private readonly specialisationRepository;
     constructor(specialisationRepository: Repository<Specialisation>);
     findMentorBySpecializationLabel(specLabel: string): Promise<ListItemMentorDto[]>;
+    findAllMentorsByParcours(specId: number): Promise<ListItemMentorDto[]>;
 }

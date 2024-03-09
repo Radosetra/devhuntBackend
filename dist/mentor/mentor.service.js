@@ -25,28 +25,40 @@ let MentorService = class MentorService {
         const query = await this.mentorRepository
             .createQueryBuilder('mentor')
             .leftJoinAndSelect('mentor.specialisation', 'specialisation')
-            .leftJoinAndSelect('novice.parcours', 'parcours')
+            .leftJoinAndSelect('mentor.parcours', 'parcours')
             .select([
-            'mentor.*',
+            'mentor.matricule',
+            'mentor.firstName',
+            'mentor.lastName',
+            'parcours.parcoursLabel',
+            'mentor.level',
+            'mentor.description',
+            'mentor.photos',
+            'mentor.contact1',
+            'mentor.contact2',
+            'mentor.contact3',
+            'mentor.successStory',
             'parcours.parcoursLabel',
             'specialisation.specLabel',
             'specialisation.description'
         ])
             .where('mentor.matricule = :matricule', { matricule })
             .getOne();
+        console.log(query);
         const profileMentor = {
             matricule: query.matricule,
             firstName: query.firstName,
             lastName: query.lastName,
             description: query.description,
-            parcours: query.parcoursLabel,
+            level: query.level,
+            parcours: query.parcours.parcoursLabel,
             photos: query.photos,
             contact1: query.contact1,
             contact2: query.contact2,
             contact3: query.contact3,
             successStory: query.successStory,
-            specLabel: query.specLabel,
-            specDescription: query.specDescription
+            specLabel: query.specialisation.specLabel,
+            specDescription: query.specialisation.description
         };
         return profileMentor;
     }

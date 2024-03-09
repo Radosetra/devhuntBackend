@@ -11,6 +11,9 @@ export class ProfileDto {
     lastName: string;
 
     @IsNotEmpty()
+    level: string;
+
+    @IsNotEmpty()
     description: string;
 
     @IsNotEmpty()
