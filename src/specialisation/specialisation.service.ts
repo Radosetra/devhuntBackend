@@ -23,7 +23,7 @@ export class SpecialisationService {
     //   }
 
     async findMentorBySpecializationLabel(specLabel: string): Promise<ListItemMentorDto[]> {
-        const query:any[] = await this.specialisationRepository
+        const query:any = await this.specialisationRepository
       .createQueryBuilder('specialisation')
       // Eagerly load the mentors relationship
       .leftJoinAndSelect('specialisation.mentors', 'mentor')
@@ -38,15 +38,50 @@ export class SpecialisationService {
         'specialisation.specLabel',
         ])
         .getMany();
+        console.log(query);
+        const montors = query[0]?.mentors || []
+        
 
-        const mentorsDto: ListItemMentorDto[] = query.map((mentorData) => ({
+        const mentorsDto: ListItemMentorDto[] = montors.map((mentorData) => ({
             matricule: mentorData.matricule,
             photos: mentorData.photos,
             firstname: mentorData.firstName,
             lastname: mentorData.lastName,
-            specLabel: mentorData.specLabel,
+            specLabel: query[0]?.specLabel,
         }));
 
+    return mentorsDto;
+    }
+
+    async findAllMentorsByParcours(specId: number): Promise<ListItemMentorDto[]>{
+        const query:any = await this.specialisationRepository
+      .createQueryBuilder('specialisation')
+      // Eagerly load the mentors relationship
+      .leftJoinAndSelect('specialisation.mentors', 'mentor')
+      // Filter by specialisation label
+      .where('specialisation.specId = :specId', { specId: specId})
+      // Select only mentors
+      .select([
+        'mentor.matricule',
+        'mentor.firstName',
+        'mentor.lastName',
+        'mentor.photos',
+        'specialisation.specLabel',
+        ])
+        .getMany();
+        const mentors = query[0]?.mentors || []
+
+        const mentorsDto: ListItemMentorDto[] = await mentors.map((mentorData) => ({
+            matricule: mentorData.matricule,
+            photos: mentorData.photos,
+            firstname: mentorData.firstName,
+            lastname: mentorData.lastName,
+            specLabel: query[0]?.specLabel,
+        }));
+
+        console.log("Montor spec");
+        console.log(mentorsDto);
+        
     return mentorsDto;
     }
 }

@@ -34,13 +34,40 @@ let SpecialisationService = class SpecialisationService {
             'specialisation.specLabel',
         ])
             .getMany();
-        const mentorsDto = query.map((mentorData) => ({
+        console.log(query);
+        const montors = query[0]?.mentors || [];
+        const mentorsDto = montors.map((mentorData) => ({
             matricule: mentorData.matricule,
             photos: mentorData.photos,
             firstname: mentorData.firstName,
             lastname: mentorData.lastName,
-            specLabel: mentorData.specLabel,
+            specLabel: query[0]?.specLabel,
         }));
+        return mentorsDto;
+    }
+    async findAllMentorsByParcours(specId) {
+        const query = await this.specialisationRepository
+            .createQueryBuilder('specialisation')
+            .leftJoinAndSelect('specialisation.mentors', 'mentor')
+            .where('specialisation.specId = :specId', { specId: specId })
+            .select([
+            'mentor.matricule',
+            'mentor.firstName',
+            'mentor.lastName',
+            'mentor.photos',
+            'specialisation.specLabel',
+        ])
+            .getMany();
+        const mentors = query[0]?.mentors || [];
+        const mentorsDto = await mentors.map((mentorData) => ({
+            matricule: mentorData.matricule,
+            photos: mentorData.photos,
+            firstname: mentorData.firstName,
+            lastname: mentorData.lastName,
+            specLabel: query[0]?.specLabel,
+        }));
+        console.log("Montor spec");
+        console.log(mentorsDto);
         return mentorsDto;
     }
 };

@@ -17,11 +17,13 @@ const common_1 = require("@nestjs/common");
 const mentor_service_1 = require("./mentor.service");
 const novice_service_1 = require("../novice/novice.service");
 const specialisation_service_1 = require("../specialisation/specialisation.service");
+const parcours_service_1 = require("../parcours/parcours.service");
 let MentorController = class MentorController {
-    constructor(mentorService, noviceService, specialisationService) {
+    constructor(mentorService, noviceService, specialisationService, parcoursService) {
         this.mentorService = mentorService;
         this.noviceService = noviceService;
         this.specialisationService = specialisationService;
+        this.parcoursService = parcoursService;
     }
     async findMentorByMatricule(matricule) {
         return await this.mentorService.findMentorByMatricule(matricule);
@@ -42,15 +44,15 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], MentorController.prototype, "findMentorByMatricule", null);
 __decorate([
-    (0, common_1.Get)('/suggestion_list/:matricule'),
-    __param(0, (0, common_1.Param)('matricule')),
+    (0, common_1.Get)('/suggestion_list'),
+    __param(0, (0, common_1.Body)('matricule')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], MentorController.prototype, "findMentorsByNoviceParcours", null);
 __decorate([
-    (0, common_1.Get)('/search_specialisation/:specLabel'),
-    __param(0, (0, common_1.Param)('specLabel')),
+    (0, common_1.Get)('/search_specialisation'),
+    __param(0, (0, common_1.Body)('specLabel')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
@@ -60,8 +62,10 @@ exports.MentorController = MentorController = __decorate([
     __param(0, (0, common_1.Inject)(mentor_service_1.MentorService)),
     __param(1, (0, common_1.Inject)(novice_service_1.NoviceService)),
     __param(2, (0, common_1.Inject)(specialisation_service_1.SpecialisationService)),
+    __param(3, (0, common_1.Inject)(parcours_service_1.ParcoursService)),
     __metadata("design:paramtypes", [mentor_service_1.MentorService,
         novice_service_1.NoviceService,
-        specialisation_service_1.SpecialisationService])
+        specialisation_service_1.SpecialisationService,
+        parcours_service_1.ParcoursService])
 ], MentorController);
 //# sourceMappingURL=mentor.controller.js.map
